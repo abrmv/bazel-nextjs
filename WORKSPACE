@@ -36,9 +36,9 @@ load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 yarn_install(
     # Name this npm so that Bazel Label references look like @npm//package
     name = "npm",
-    package_json = "//example-ts:package.json",
-    yarn_lock = "//example-ts:yarn.lock",
-    frozen_lockfile = False,
-    symlink_node_modules = True,
-    exports_directories_only = True,
+    args = ["--production"],
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+    frozen_lockfile = True,
+    symlink_node_modules = False,
 )

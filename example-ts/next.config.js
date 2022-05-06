@@ -1,21 +1,16 @@
-const path = require("path");
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-	//reactStrictMode: true,
+module.exports = {
 	webpack: (config) => {
-		// Handle issues with multiple react versions
-		// https://reactjs.org/warnings/invalid-hook-call-warning.html
-		config.resolve.alias = {
-			...config.resolve.alias,
-			react: path.resolve(
-				path.join(process.env.RUNFILES, "npm", "node_modules", "react")
-			),
-			"react-dom": path.resolve(
-				path.join(process.env.RUNFILES, "npm", "node_modules", "react-dom")
-			),
-        };
-        return config;
-    }
+		// Disable minification for faster build times
+		config.optimization.minimize = false;
+		return config;
+	},
+	typescript: {
+		// Skip built-in typechecking in next.js for faster build times
+		ignoreBuildErrors: true,
+	},
+	eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
 }
-
-module.exports = nextConfig
